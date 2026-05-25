@@ -22,36 +22,50 @@ To Implement Diffie Hellman Key Exchange Algorithm
 ```
 #include <stdio.h>
 #include <math.h>
-long long int power(long long int base, long long int exp, long long int mod) {
-    long long int result = 1;
-    for (int i = 0; i < exp; i++) {
+
+int power(int base, int exp, int mod)
+{
+    int result = 1;
+
+    while(exp > 0)
+    {
         result = (result * base) % mod;
+        exp--;
     }
     return result;
 }
-int main() {
-    long long int P, G, a, b; 
-    long long int A, B, secretA, secretB;
-    printf("Enter a prime number (P): ");
-    scanf("%lld", &P);
-    printf("Enter a primitive root of %lld (G): ", P);
-    scanf("%lld", &G);
-    printf("Enter private key for Alice (a): ");
-    scanf("%lld", &a);
-    printf("Enter private key for Bob (b): ");
-    scanf("%lld", &b);
-    A = power(G, a, P);
-    B = power(G, b, P);
-    secretA = power(B, a, P);
-    secretB = power(A, b, P);
-    printf("\nPublic Key of Alice (A): %lld", A);
-    printf("\nPublic Key of Bob (B): %lld", B);
-    printf("\n\nSecret Key for Alice: %lld", secretA);
-    printf("\nSecret Key for Bob: %lld\n", secretB);
-    if (secretA == secretB)
-        printf("\nhared secret key successfully established!\n");
-    else
-        printf("\nError: Keys do not match.\n");
+
+int main()
+{
+    int p, g;
+    int a, b;
+    int A, B;
+    int keyA, keyB;
+
+    printf("Enter prime number (p): ");
+    scanf("%d", &p);
+
+    printf("Enter primitive root (g): ");
+    scanf("%d", &g);
+
+    printf("Enter private key of User A: ");
+    scanf("%d", &a);
+
+    printf("Enter private key of User B: ");
+    scanf("%d", &b);
+
+    A = power(g, a, p);
+    B = power(g, b, p);
+
+    printf("\nPublic Key of User A = %d", A);
+    printf("\nPublic Key of User B = %d", B);
+
+    keyA = power(B, a, p);
+    keyB = power(A, b, p);
+
+    printf("\n\nSecret Key computed by User A = %d", keyA);
+    printf("\nSecret Key computed by User B = %d", keyB);
+
     return 0;
 }
 ```
@@ -59,7 +73,7 @@ int main() {
 
 ## Output:
 
-<img width="1734" height="933" alt="Screenshot 2025-11-14 135905" src="https://github.com/user-attachments/assets/49154b5e-6f7e-4409-b47d-4d3be3a61456" />
+<img width="1746" height="987" alt="Screenshot 2026-05-25 120950" src="https://github.com/user-attachments/assets/64f61d20-75bd-4629-bc11-8a50bb17bfda" />
 
 
 ## Result:
